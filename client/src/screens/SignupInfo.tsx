@@ -221,13 +221,12 @@ const SignupScreen = ({ navigation, route }: Props) => {
               </Text>
             </View>
           </View>
-          <View className="Frame19 w-[362px] h-[39px] px-[142px] bg-emerald-700 rounded-[10px] shadow justify-center items-center">
+          <TouchableOpacity onPress={submitHandler} className="Frame19 w-[341px] h-[39px] px-[142px] bg-emerald-700 rounded-[10px] shadow justify-center items-center">
             <Text
-              className="SignIn w-[47px] text-center text-white text-sm font-bold font-Roboto tracking-tight"
-              onPress={submitHandler}>
+              className="Finish w-full text-center text-white font-bold font-Roboto tracking-tight">
               Finish
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

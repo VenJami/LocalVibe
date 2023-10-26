@@ -3,6 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Tabs from './Tabs';
 import OnBoarding from '../src/screens/OnBoarding';
 import { getItem, setItem } from '../utils/asyncStorage';
+import PostScreen from '../src/screens/PostScreen';
+import ProfileScreen from '../src/screens/ProfileScreen';
+import SearchScreen from '../src/screens/SearchScreen';
 
 type Props = {};
 
@@ -37,6 +40,10 @@ const Main = (props: Props) => {
         }}>
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="Home" component={Tabs} />
+        <Stack.Screen name="Post" component={PostScreen}/>
+        <Stack.Screen name="Profile" component={ProfileScreen}/>
+        <Stack.Screen name="Search" component={SearchScreen}/>
+
       </Stack.Navigator>
     );
   } else {
@@ -46,8 +53,11 @@ const Main = (props: Props) => {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="Home" component={Tabs} />
+        <Stack.Screen name="Post" component={PostScreen}/>
+        <Stack.Screen name="Profile" component={ProfileScreen}/>
+        <Stack.Screen name="Search" component={SearchScreen}/>
+
       </Stack.Navigator>
     );
   }

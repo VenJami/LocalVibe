@@ -36,14 +36,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.registerUser = void 0;
+exports.loginUser = exports.loadUser = exports.registerUser = void 0;
 var axios_1 = require("axios");
 var URI_1 = require("../URI");
 var async_storage_1 = require("@react-native-async-storage/async-storage");
 // register user
 exports.registerUser = function (name, email, password, avatar) {
     return function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
-        var config, data, error_1;
+        var config, data, user, error_1;
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -52,19 +52,19 @@ exports.registerUser = function (name, email, password, avatar) {
                     dispatch({
                         type: 'userRegisterRequest'
                     });
-                    console.log('Received logs for useraction');
                     config = { headers: { 'Content-Type': 'application/json' } };
                     return [4 /*yield*/, axios_1["default"].post(URI_1.URI + "/registration", { name: name, email: email, password: password, avatar: avatar }, config)];
                 case 1:
                     data = (_b.sent()).data;
-                    console.log('After POST request');
-                    console.log('Response data:', data);
                     dispatch({
                         type: 'userRegisterSuccess',
                         payload: data.user
                     });
-                    return [4 /*yield*/, async_storage_1["default"].setItem('token', data.token)];
+                    user = JSON.stringify(data.user);
+                    // await AsyncStorage.setItem('token', data.token);
+                    return [4 /*yield*/, async_storage_1["default"].setItem("user", user)];
                 case 2:
+                    // await AsyncStorage.setItem('token', data.token);
                     _b.sent();
                     return [3 /*break*/, 4];
                 case 3:
@@ -79,57 +79,74 @@ exports.registerUser = function (name, email, password, avatar) {
         });
     }); };
 };
-// // load user
-// export const loadUser = () => async (dispatch: Dispatch<any>) => {
-//   try {
-//     dispatch({
-//       type: 'userLoadRequest',
-//     });
-//     const token = await AsyncStorage.getItem('token');
-//     const {data} = await axios.get(`${URI}/me`, {
-//       headers: {Authorization: `Bearer ${token}`},
-//     });
-//     dispatch({
-//       type: 'userLoadSuccess',
-//       payload: {
-//         user: data.user,
-//         token,
-//       },
-//     });
-//   } catch (error: any) {
-//     dispatch({
-//       type: 'userLoadFailed',
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
-// // login user
-// export const loginUser =
-//   (email: string, password: string) => async (dispatch: Dispatch<any>) => {
-//     try {
-//       dispatch({
-//         type: 'userLoginRequest',
-//       });
-//       const config = {headers: {'Content-Type': 'application/json'}};
-//       const {data} = await axios.post(
-//         `${URI}/login`,
-//         {email, password},
-//         config,
-//       );
-//       dispatch({
-//         type: 'userLoginSuccess',
-//         payload: data.user,
-//       });
-//       if (data.token) {
-//         await AsyncStorage.setItem('token', data.token);
-//       }
-//     } catch (error: any) {
-//       dispatch({
-//         type: 'userLoginFailed',
-//         payload: error.response.data.message,
-//       });
-//     }
-//   };
+// load user
+exports.loadUser = function () { return function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
+    var jsonValue, user, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                dispatch({
+                    type: 'userLoadRequest'
+                });
+                return [4 /*yield*/, async_storage_1["default"].getItem("user")];
+            case 1:
+                jsonValue = _a.sent();
+                if (jsonValue !== null) {
+                    user = JSON.parse(jsonValue);
+                    dispatch({
+                        type: 'userLoadSuccess',
+                        payload: user
+                    });
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                dispatch({
+                    type: 'userLoadFailed',
+                    payload: error_2.response.data.message
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); }; };
+// login user
+exports.loginUser = function (email, password) { return function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
+    var config, data, user, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                dispatch({
+                    type: 'userLoginRequest'
+                });
+                config = { headers: { 'Content-Type': 'application/json' } };
+                return [4 /*yield*/, axios_1["default"].post(URI_1.URI + "/login", { email: email, password: password }, config)];
+            case 1:
+                data = (_a.sent()).data;
+                dispatch({
+                    type: 'userLoginSuccess',
+                    payload: data.user
+                });
+                user = JSON.stringify(data.user);
+                // await AsyncStorage.setItem('token', data.token);
+                return [4 /*yield*/, async_storage_1["default"].setItem("user", user)];
+            case 2:
+                // await AsyncStorage.setItem('token', data.token);
+                _a.sent();
+                return [3 /*break*/, 4];
+            case 3:
+                error_3 = _a.sent();
+                dispatch({
+                    type: 'userLoginFailed',
+                    payload: error_3.response.data.message
+                });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); }; };
 // // log out user
 // export const logoutUser = () => async (dispatch: Dispatch<any>) => {
 //   try {

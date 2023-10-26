@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  StatusBar,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../redux/actions/userAction';
@@ -41,8 +42,10 @@ const LoginScreen = ({navigation}: Props) => {
   }, [isAuthenticated])
 
   return (
-    <View className="bg-teal-50 justify-center items-center flex">
+    <View className="bg-teal-50 justify-center items-center flex-1">
+      <StatusBar backgroundColor="#F1FFF8" barStyle="dark-content" />
       <Image
+      
         className="absolute top-0	 w-full h-full"
         source={backgroundImage}
       />
