@@ -24,9 +24,7 @@ export const registerUser =
         type: 'userRegisterSuccess',
         payload: data.user,
       });
-      const user = JSON.stringify(data.user);
-      // await AsyncStorage.setItem('token', data.token);
-      await AsyncStorage.setItem("user", user);
+      await AsyncStorage.setItem('token', data.token);
     } catch (error: any) {
       dispatch({
         type: 'userRegisterFailed',
@@ -42,16 +40,19 @@ export const loadUser = () => async (dispatch: Dispatch<any>) => {
       type: 'userLoadRequest',
     });
 
-    // const {data} = await axios.get(`${URI}/me`);
-    const jsonValue = await AsyncStorage.getItem("user");
+    const token = await AsyncStorage.getItem('token');
 
-    if(jsonValue !== null){
-      const user = JSON.parse(jsonValue);
-      dispatch({
-        type: 'userLoadSuccess',
-        payload: user,
-      });
-    }
+    const {data} = await axios.get(`${URI}/me`, {
+      headers: {Authorization: `Bearer ${token}`},
+    });
+
+    dispatch({
+      type: 'userLoadSuccess',
+      payload: {
+        user: data.user,
+        token,
+      },
+    });
   } catch (error: any) {
     dispatch({
       type: 'userLoadFailed',
@@ -80,9 +81,10 @@ export const loginUser =
         type: 'userLoginSuccess',
         payload: data.user,
       });
-      const user = JSON.stringify(data.user);
-      // await AsyncStorage.setItem('token', data.token);
-      await AsyncStorage.setItem("user", user);
+
+      if (data.token) {
+        await AsyncStorage.setItem('token', data.token);
+      }
     } catch (error: any) {
       dispatch({
         type: 'userLoginFailed',
@@ -91,127 +93,125 @@ export const loginUser =
     }
   };
 
+// log out user
+export const logoutUser = () => async (dispatch: Dispatch<any>) => {
+  try {
+    dispatch({
+      type: 'userLogoutRequest',
+    });
 
+    await AsyncStorage.setItem('token', '');
 
-// // log out user
-// export const logoutUser = () => async (dispatch: Dispatch<any>) => {
-//   try {
-//     dispatch({
-//       type: 'userLogoutRequest',
-//     });
+    dispatch({
+      type: 'userLogoutSuccess',
+      payload: {},
+    });
+  } catch (error) {
+    dispatch({
+      type: 'userLogoutFailed',
+    });
+  }
+};
 
-//     await AsyncStorage.setItem('token', '');
+// get all users
+export const getAllUsers = () => async (dispatch: Dispatch<any>) => {
+  try {
+    dispatch({
+      type: 'getUsersRequest',
+    });
 
-//     dispatch({
-//       type: 'userLogoutSuccess',
-//       payload: {},
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: 'userLogoutFailed',
-//     });
-//   }
-// };
+    const token = await AsyncStorage.getItem('token');
 
-// // get all users
-// export const getAllUsers = () => async (dispatch: Dispatch<any>) => {
-//   try {
-//     dispatch({
-//       type: 'getUsersRequest',
-//     });
+    const {data} = await axios.get(`${URI}/users`, {
+      headers: {Authorization: `Bearer ${token}`},
+    });
 
-//     const token = await AsyncStorage.getItem('token');
+    dispatch({
+      type: 'getUsersSuccess',
+      payload: data.users,
+    });
+  } catch (error: any) {
+    dispatch({
+      type: 'getUsersFailed',
+      payload: error.response.data.message,
+    });
+  }
+};
 
-//     const {data} = await axios.get(`${URI}/users`, {
-//       headers: {Authorization: `Bearer ${token}`},
-//     });
+interface FollowUnfollowParams {
+  userId: string;
+  followUserId: string;
+  users: any;
+}
 
-//     dispatch({
-//       type: 'getUsersSuccess',
-//       payload: data.users,
-//     });
-//   } catch (error: any) {
-//     dispatch({
-//       type: 'getUsersFailed',
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+// follow user
+export const followUserAction =
+  ({userId, users, followUserId}: FollowUnfollowParams) =>
+  async (dispatch: Dispatch<any>) => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const updatedUsers = users.map((userObj: any) =>
+        userObj._id === followUserId
+          ? {
+              ...userObj,
+              followers: [...userObj.followers, {userId}],
+            }
+          : userObj,
+      );
 
-// interface FollowUnfollowParams {
-//   userId: string;
-//   followUserId: string;
-//   users: any;
-// }
+      // update our users state
+      dispatch({
+        type: 'getUsersSuccess',
+        payload: updatedUsers,
+      });
 
-// // follow user
-// export const followUserAction =
-//   ({userId, users, followUserId}: FollowUnfollowParams) =>
-//   async (dispatch: Dispatch<any>) => {
-//     try {
-//       const token = await AsyncStorage.getItem('token');
-//       const updatedUsers = users.map((userObj: any) =>
-//         userObj._id === followUserId
-//           ? {
-//               ...userObj,
-//               followers: [...userObj.followers, {userId}],
-//             }
-//           : userObj,
-//       );
+      await axios.put(
+        `${URI}/add-user`,
+        {followUserId},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+    } catch (error) {
+      console.log('Error following user:', error);
+    }
+  };
 
-//       // update our users state
-//       dispatch({
-//         type: 'getUsersSuccess',
-//         payload: updatedUsers,
-//       });
+// unfollow user
+export const unfollowUserAction =
+  ({userId, users, followUserId}: FollowUnfollowParams) =>
+  async (dispatch: Dispatch<any>) => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const updatedUsers = users.map((userObj: any) =>
+        userObj._id === followUserId
+          ? {
+              ...userObj,
+              followers: userObj.followers.filter(
+                (follower: any) => follower.userId !== userId,
+              ),
+            }
+          : userObj,
+      );
 
-//       await axios.put(
-//         `${URI}/add-user`,
-//         {followUserId},
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         },
-//       );
-//     } catch (error) {
-//       console.log('Error following user:', error);
-//     }
-//   };
+      // update our users state
+      dispatch({
+        type: 'getUsersSuccess',
+        payload: updatedUsers,
+      });
 
-// // unfollow user
-// export const unfollowUserAction =
-//   ({userId, users, followUserId}: FollowUnfollowParams) =>
-//   async (dispatch: Dispatch<any>) => {
-//     try {
-//       const token = await AsyncStorage.getItem('token');
-//       const updatedUsers = users.map((userObj: any) =>
-//         userObj._id === followUserId
-//           ? {
-//               ...userObj,
-//               followers: userObj.followers.filter(
-//                 (follower: any) => follower.userId !== userId,
-//               ),
-//             }
-//           : userObj,
-//       );
-
-//       // update our users state
-//       dispatch({
-//         type: 'getUsersSuccess',
-//         payload: updatedUsers,
-//       });
-
-//       await axios.put(
-//         `${URI}/add-user`,
-//         {followUserId},
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         },
-//       );
-//     } catch (error) {
-//       console.log('Error following user:', error);
-//     }
-//   };
+      await axios.put(
+        `${URI}/add-user`,
+        {followUserId},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+    } catch (error) {
+      console.log('Error following user:', error);
+    }
+  };

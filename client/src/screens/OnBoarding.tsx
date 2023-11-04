@@ -1,4 +1,4 @@
-import {View, Dimensions, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Dimensions, StyleSheet, TouchableOpacity, Image, StatusBar} from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 import LottieView from 'lottie-react-native';
 import React from 'react';
@@ -29,14 +29,20 @@ export default function OnBoarding() {
 
   return (
     <View style={styles.container}>
+      <StatusBar 
+      backgroundColor="#F1FFF8" 
+      barStyle='dark-content' 
+      showHideTransition='fade'
+      />
       <Onboarding
         onDone={handleDone}
         onSkip={handleDone}
         // DoneButtonComponent={CustomDoneButton}
         containerStyles={{paddingHorizontal: 15}}
+        bottomBarColor='#017E5E'
         pages={[
           {
-            backgroundColor: '#fff',
+            backgroundColor: '#F1FFF8',
             image: (
               <View>
                 <LottieView
@@ -52,7 +58,7 @@ export default function OnBoarding() {
               "Step into LocalVibe, where unity, friendships, and belonging flourish. Let's create a thriving community together!",
           },
           {
-            backgroundColor: '#fff',
+            backgroundColor: '#F1FFF8',
             image: (
               <View>
                 <LottieView
@@ -68,7 +74,7 @@ export default function OnBoarding() {
               'Explore local treasures, support businesses, and foster community with LocalVibe. Join the journey!',
           },
           {
-            backgroundColor: '#fff',
+            backgroundColor: '#F1FFF8',
             image: (
               <View>
                 <LottieView
@@ -84,7 +90,7 @@ export default function OnBoarding() {
               'Discover the magic of proximity with LocalVibe! Our Proximity-Based Feeds keep ',
           },
           {
-            backgroundColor: '#fff',
+            backgroundColor: '#F1FFF8',
             image: (
               <View>
                 <LottieView
@@ -100,7 +106,7 @@ export default function OnBoarding() {
               'Elevate your events with LocalVibe! Bring people together like never before.',
           },
           {
-            backgroundColor: '#fff',
+            backgroundColor: '#F1FFF8',
             image: (
               <View>
                 <LottieView

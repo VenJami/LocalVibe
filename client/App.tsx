@@ -5,6 +5,8 @@ import Auth from './Navigations/Auth';
 import Store from './redux/Store';
 import {Provider, useSelector} from 'react-redux';
 import { loadUser } from './redux/actions/userAction';
+import { StatusBar, Text } from 'react-native';
+import Loader from './src/common/Loader';
 
 function App() {
   return (
@@ -26,14 +28,28 @@ const AppStack = () => {
 
   return (
     <>
-      {isAuthenticated ? (
-        <NavigationContainer>
-          <Main />
-        </NavigationContainer>
+      <>
+        <StatusBar
+          animated={true}
+          backgroundColor={'#fff'}
+          barStyle={'dark-content'}
+          showHideTransition={'fade'}
+        />
+      </>
+      {loading ? (
+        <Loader />
       ) : (
-        <NavigationContainer>
-          <Auth />
-        </NavigationContainer>
+        <>
+          {isAuthenticated ? (
+            <NavigationContainer>
+              <Main />
+            </NavigationContainer>
+          ) : (
+            <NavigationContainer>
+              <Auth />
+            </NavigationContainer>
+          )}
+        </>
       )}
     </>
   );

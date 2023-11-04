@@ -21,7 +21,7 @@ const HomeScreen = ({navigation}: Props) => {
 
       <View className="flex flex-row p-2 justify-between bg-white">
         <View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
             <Image source={require('../assets/wordlogo.png')} />
           </TouchableOpacity>
         </View>

@@ -27,7 +27,7 @@ var LoginScreen = function (_a) {
         }
     }, [isAuthenticated]);
     return (react_1["default"].createElement(react_native_1.View, { className: "bg-teal-50 justify-center items-center flex-1" },
-        react_1["default"].createElement(react_native_1.StatusBar, { backgroundColor: "#F1FFF8", barStyle: "dark-content" }),
+        react_1["default"].createElement(react_native_1.StatusBar, { backgroundColor: "#017E5E", barStyle: "dark-content" }),
         react_1["default"].createElement(react_native_1.Image, { className: "absolute top-0\t w-full h-full", source: backgroundImage }),
         react_1["default"].createElement(react_native_1.View, { className: "body flex-col justify-center items-center gap-y-[140px]" },
             react_1["default"].createElement(react_native_1.View, { className: "Logo h-[179px] shadow-inner flex-col justify-center items-center " },

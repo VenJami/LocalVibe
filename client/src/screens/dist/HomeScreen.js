@@ -11,7 +11,7 @@ var HomeScreen = function (_a) {
         react_1["default"].createElement(react_native_1.StatusBar, { backgroundColor: "#fff", barStyle: "dark-content" }),
         react_1["default"].createElement(react_native_1.View, { className: "flex flex-row p-2 justify-between bg-white" },
             react_1["default"].createElement(react_native_1.View, null,
-                react_1["default"].createElement(react_native_1.TouchableOpacity, null,
+                react_1["default"].createElement(react_native_1.TouchableOpacity, { onPress: function () { return navigation.navigate('Home'); } },
                     react_1["default"].createElement(react_native_1.Image, { source: require('../assets/wordlogo.png') }))),
             react_1["default"].createElement(react_native_1.View, { className: "flex flex-row p-2 justify-between" },
                 react_1["default"].createElement(react_native_1.TouchableOpacity, { onPress: function () { return navigation.navigate('Search'); }, className: "rounded-full p-2 mx-2 bg-green-50" },

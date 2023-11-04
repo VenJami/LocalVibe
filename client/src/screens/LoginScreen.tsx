@@ -43,7 +43,7 @@ const LoginScreen = ({navigation}: Props) => {
 
   return (
     <View className="bg-teal-50 justify-center items-center flex-1">
-      <StatusBar backgroundColor="#F1FFF8" barStyle="dark-content" />
+      <StatusBar backgroundColor="#017E5E" barStyle="dark-content" />
       <Image
       
         className="absolute top-0	 w-full h-full"
