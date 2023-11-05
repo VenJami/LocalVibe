@@ -10,9 +10,13 @@ const {
   deletePost,
 } = require("../controllers/post");
 
+const { isAuthenticatedUser } = require("../middleware/auth");
+
 const router = express.Router();
 
-router.route("/create-post").post(createPost);
+router.route("/create-post").post(isAuthenticatedUser, createPost);
+
+router.route("/get-all-posts").get(isAuthenticatedUser, getAllPosts);
 
 
 module.exports = router;

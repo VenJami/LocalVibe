@@ -115,11 +115,50 @@ const ProfileScreen = ({navigation}: Props) => {
               <Text
                 className="text-[18px] pl-3 text-[#000]"
                 style={{opacity: active === 1 ? 1 : 0.6}}>
-                Replies
+                Media
               </Text>
             </TouchableOpacity>
           </View>
         </View>
+        
+        {/* 
+                    {active === 0 && (
+                      <>
+                        {postData &&
+                          postData.map((item: any) => (
+                            <PostCard
+                              navigation={navigation}
+                              key={item._id}
+                              item={item}
+                            />
+                          ))}
+                        {postData.length === 0 && (
+                          <Text className="text-black py-10 text-center text-[18px]">
+                            No Post yet!
+                          </Text>
+                        )}
+                      </>
+                    )}
+    
+                    {active === 1 && (
+                      <>
+                        {repliesData &&
+                          repliesData.map((item: any) => (
+                            <PostCard
+                              navigation={navigation}
+                              key={item._id}
+                              item={item}
+                              replies={true}
+                            />
+                          ))}
+                        {active !== 1 && postData.length === 0 && (
+                          <Text className="text-black py-10 text-center text-[18px]">
+                            No Post yet!
+                          </Text>
+                        )}
+                      </>
+                    )} */}
+
         <Button
           title="Go to Home"
           onPress={() => navigation.navigate('Home')}

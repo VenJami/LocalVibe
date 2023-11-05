@@ -24,6 +24,7 @@ var LoginScreen = function (_a) {
         if (isAuthenticated) {
             react_native_1.Alert.alert("Login Successful!");
             navigation.navigate('Home');
+            userAction_1.loadUser()(dispatch);
         }
     }, [isAuthenticated]);
     return (react_1["default"].createElement(react_native_1.View, { className: "bg-teal-50 justify-center items-center flex-1" },

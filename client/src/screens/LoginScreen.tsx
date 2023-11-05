@@ -9,7 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {loginUser} from '../../redux/actions/userAction';
+import {loadUser, loginUser} from '../../redux/actions/userAction';
 
 type Props = {
   navigation: any;
@@ -38,6 +38,7 @@ const LoginScreen = ({navigation}: Props) => {
     if(isAuthenticated){ 
       Alert.alert("Login Successful!");
       navigation.navigate('Home');
+      loadUser()(dispatch);
     }
   }, [isAuthenticated])
 

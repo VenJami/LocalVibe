@@ -9,7 +9,11 @@ import {
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
-import {followUserAction, getAllUsers, unfollowUserAction} from '../../redux/actions/userAction';
+import {
+  followUserAction,
+  getAllUsers,
+  unfollowUserAction,
+} from '../../redux/actions/userAction';
 import Loader from '../common/Loader';
 
 type Props = {
@@ -110,40 +114,45 @@ const SearchScreen = ({navigation}: Props) => {
                     }
                   };
                   return (
-                    <View className="flex-row my-3">
-                      <Image
-                        source={{uri: item.avatar.url}}
-                        width={30}
-                        height={30}
-                        borderRadius={100}
-                      />
-                      <View className="w-[90%] flex-row justify-between border-b border-[#00000020] pb-2">
-                        <View className="">
-                          <Text className="pl-3 text-[18px] text-black">
-                            {item.name}
-                          </Text>
-                          <Text className="pl-3 text-[18px] text-black">
-                            {item.userName}
-                          </Text>
-                          <Text className="pl-3 mt-1 text-[16px] text-[#444]">
-                            {item.followers.length} followers
-                          </Text>
-                        </View>
-                        <View>
-                          <TouchableOpacity
-                            className="rounded-[8px] w-[100px] flex-row justify-center items-center h-[35px] border border-[#0000004b]"
-                            onPress={() => handleFollowUnfollow(item)}>
-                            <Text className="text-black">
-                              {item.followers.find(
-                                (i: any) => i.userId === user._id,
-                              )
-                                ? 'Following'
-                                : 'Follow'}
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('UserProfile',{
+                        item: item,
+                      })}>
+                      <View className="flex-row my-3">
+                        <Image
+                          source={{uri: item.avatar.url}}
+                          width={30}
+                          height={30}
+                          borderRadius={100}
+                        />
+                        <View className="w-[90%] flex-row justify-between border-b border-[#00000020] pb-2">
+                          <View className="">
+                            <Text className="pl-3 text-[18px] text-black">
+                              {item.name}
                             </Text>
-                          </TouchableOpacity>
+                            <Text className="pl-3 text-[18px] text-black">
+                              {item.userName}
+                            </Text>
+                            <Text className="pl-3 mt-1 text-[16px] text-[#444]">
+                              {item.followers.length} followers
+                            </Text>
+                          </View>
+                          <View>
+                            <TouchableOpacity
+                              className="rounded-[8px] w-[100px] flex-row justify-center items-center h-[35px] border border-[#0000004b]"
+                              onPress={() => handleFollowUnfollow(item)}>
+                              <Text className="text-black">
+                                {item.followers.find(
+                                  (i: any) => i.userId === user._id,
+                                )
+                                  ? 'Following'
+                                  : 'Follow'}
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
                         </View>
                       </View>
-                    </View>
+                    </TouchableOpacity>
                   );
                 }}
               />

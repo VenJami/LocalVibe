@@ -6,6 +6,8 @@ const {
   userDetails,
   getAllUsers,
   followUnfollowUser,
+  getNotification,
+  getUser,
 } = require("../controllers/user");
 const { isAuthenticatedUser } = require("../middleware/auth");
 const router = express.Router();
@@ -19,6 +21,10 @@ router.route("/logout").get(logoutUser);
 router.route("/users").get(isAuthenticatedUser, getAllUsers);
 
 router.route("/add-user").put(isAuthenticatedUser, followUnfollowUser);
+
+router.route("/get-notifications").get(isAuthenticatedUser, getNotification);
+
+router.route("/get-user/:id").get(isAuthenticatedUser, getUser);
 
 router.route("/me").get(isAuthenticatedUser, userDetails);
 

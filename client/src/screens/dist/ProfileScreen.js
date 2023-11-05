@@ -101,7 +101,7 @@ var ProfileScreen = function (_a) {
                     react_1["default"].createElement(react_native_1.TouchableOpacity, { onPress: function () { return setActive(0); } },
                         react_1["default"].createElement(react_native_1.Text, { className: "text-[18px] pl-3 text-[#000]", style: { opacity: active === 0 ? 1 : 0.6 } }, "Posts")),
                     react_1["default"].createElement(react_native_1.TouchableOpacity, { onPress: function () { return setActive(1); } },
-                        react_1["default"].createElement(react_native_1.Text, { className: "text-[18px] pl-3 text-[#000]", style: { opacity: active === 1 ? 1 : 0.6 } }, "Replies")))),
+                        react_1["default"].createElement(react_native_1.Text, { className: "text-[18px] pl-3 text-[#000]", style: { opacity: active === 1 ? 1 : 0.6 } }, "Media")))),
             react_1["default"].createElement(react_native_1.Button, { title: "Go to Home", onPress: function () { return navigation.navigate('Home'); } }))));
 };
 exports["default"] = ProfileScreen;

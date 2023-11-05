@@ -3,7 +3,7 @@ const ErrorHandler = require("../utils/ErrorHandler.js");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken.js");
 const cloudinary = require("cloudinary");
-const Notification = require("../models/NotificationModel.js")
+const Notification = require("../models/NotificationModel.js");
 
 // Register user
 exports.createUser = catchAsyncErrors(async (req, res, next) => {
@@ -167,6 +167,33 @@ exports.followUnfollowUser = catchAsyncErrors(async (req, res, next) => {
         message: "User followed successfully",
       });
     }
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 401));
+  }
+});
+
+// get user notification
+exports.getNotification = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const notifications = await Notification.find({ userId: req.user.id }).sort(
+      { createdAt: -1 }
+    );
+
+    res.status(201).json({
+      success: true,
+      notifications,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 401));
+  }
+});
+
+// get single user
+exports.getUser = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    res.status(201).json({ success: true, user });
   } catch (error) {
     return next(new ErrorHandler(error.message, 401));
   }

@@ -44,6 +44,7 @@ var asyncStorage_1 = require("../utils/asyncStorage");
 var PostScreen_1 = require("../src/screens/PostScreen");
 var ProfileScreen_1 = require("../src/screens/ProfileScreen");
 var SearchScreen_1 = require("../src/screens/SearchScreen");
+var UserProfileScreen_1 = require("../src/screens/UserProfileScreen");
 var Main = function (props) {
     var Stack = native_stack_1.createNativeStackNavigator();
     var _a = react_1.useState(null), showOnboarding = _a[0], setShowOnboarding = _a[1]; // Set initial state as null
@@ -78,7 +79,8 @@ var Main = function (props) {
             react_1["default"].createElement(Stack.Screen, { name: "Home", component: Tabs_1["default"] }),
             react_1["default"].createElement(Stack.Screen, { name: "Post", component: PostScreen_1["default"] }),
             react_1["default"].createElement(Stack.Screen, { name: "Profile", component: ProfileScreen_1["default"] }),
-            react_1["default"].createElement(Stack.Screen, { name: "Search", component: SearchScreen_1["default"] })));
+            react_1["default"].createElement(Stack.Screen, { name: "Search", component: SearchScreen_1["default"] }),
+            react_1["default"].createElement(Stack.Screen, { name: "UserProfile", component: UserProfileScreen_1["default"] })));
     }
     else {
         return (react_1["default"].createElement(Stack.Navigator, { initialRouteName: "Home", screenOptions: {
@@ -87,7 +89,8 @@ var Main = function (props) {
             react_1["default"].createElement(Stack.Screen, { name: "Home", component: Tabs_1["default"] }),
             react_1["default"].createElement(Stack.Screen, { name: "Post", component: PostScreen_1["default"] }),
             react_1["default"].createElement(Stack.Screen, { name: "Profile", component: ProfileScreen_1["default"] }),
-            react_1["default"].createElement(Stack.Screen, { name: "Search", component: SearchScreen_1["default"] })));
+            react_1["default"].createElement(Stack.Screen, { name: "Search", component: SearchScreen_1["default"] }),
+            react_1["default"].createElement(Stack.Screen, { name: "UserProfile", component: UserProfileScreen_1["default"] })));
     }
 };
 exports["default"] = Main;

@@ -119,20 +119,23 @@ var SearchScreen = function (_a) {
                             }
                         });
                     }); };
-                    return (react_1["default"].createElement(react_native_1.View, { className: "flex-row my-3" },
-                        react_1["default"].createElement(react_native_1.Image, { source: { uri: item.avatar.url }, width: 30, height: 30, borderRadius: 100 }),
-                        react_1["default"].createElement(react_native_1.View, { className: "w-[90%] flex-row justify-between border-b border-[#00000020] pb-2" },
-                            react_1["default"].createElement(react_native_1.View, { className: "" },
-                                react_1["default"].createElement(react_native_1.Text, { className: "pl-3 text-[18px] text-black" }, item.name),
-                                react_1["default"].createElement(react_native_1.Text, { className: "pl-3 text-[18px] text-black" }, item.userName),
-                                react_1["default"].createElement(react_native_1.Text, { className: "pl-3 mt-1 text-[16px] text-[#444]" },
-                                    item.followers.length,
-                                    " followers")),
-                            react_1["default"].createElement(react_native_1.View, null,
-                                react_1["default"].createElement(react_native_1.TouchableOpacity, { className: "rounded-[8px] w-[100px] flex-row justify-center items-center h-[35px] border border-[#0000004b]", onPress: function () { return handleFollowUnfollow(item); } },
-                                    react_1["default"].createElement(react_native_1.Text, { className: "text-black" }, item.followers.find(function (i) { return i.userId === user._id; })
-                                        ? 'Following'
-                                        : 'Follow'))))));
+                    return (react_1["default"].createElement(react_native_1.TouchableOpacity, { onPress: function () { return navigation.navigate('UserProfile', {
+                            item: item
+                        }); } },
+                        react_1["default"].createElement(react_native_1.View, { className: "flex-row my-3" },
+                            react_1["default"].createElement(react_native_1.Image, { source: { uri: item.avatar.url }, width: 30, height: 30, borderRadius: 100 }),
+                            react_1["default"].createElement(react_native_1.View, { className: "w-[90%] flex-row justify-between border-b border-[#00000020] pb-2" },
+                                react_1["default"].createElement(react_native_1.View, { className: "" },
+                                    react_1["default"].createElement(react_native_1.Text, { className: "pl-3 text-[18px] text-black" }, item.name),
+                                    react_1["default"].createElement(react_native_1.Text, { className: "pl-3 text-[18px] text-black" }, item.userName),
+                                    react_1["default"].createElement(react_native_1.Text, { className: "pl-3 mt-1 text-[16px] text-[#444]" },
+                                        item.followers.length,
+                                        " followers")),
+                                react_1["default"].createElement(react_native_1.View, null,
+                                    react_1["default"].createElement(react_native_1.TouchableOpacity, { className: "rounded-[8px] w-[100px] flex-row justify-center items-center h-[35px] border border-[#0000004b]", onPress: function () { return handleFollowUnfollow(item); } },
+                                        react_1["default"].createElement(react_native_1.Text, { className: "text-black" }, item.followers.find(function (i) { return i.userId === user._id; })
+                                            ? 'Following'
+                                            : 'Follow')))))));
                 } })))))));
 };
 exports["default"] = SearchScreen;

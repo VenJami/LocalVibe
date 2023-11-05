@@ -36,9 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.createPostAction = void 0;
+exports.getAllPosts = exports.createPostAction = void 0;
 var axios_1 = require("axios");
 var URI_1 = require("../URI");
+var async_storage_1 = require("@react-native-async-storage/async-storage");
 // create post
 exports.createPostAction = function (title, image, user, replies) {
     return function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
@@ -71,3 +72,39 @@ exports.createPostAction = function (title, image, user, replies) {
         });
     }); };
 };
+// get all Posts
+exports.getAllPosts = function () { return function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
+    var token, data, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                dispatch({
+                    type: 'getAllPostsRequest'
+                });
+                return [4 /*yield*/, async_storage_1["default"].getItem('token')];
+            case 1:
+                token = _a.sent();
+                return [4 /*yield*/, axios_1["default"].get(URI_1.URI + "/get-all-posts", {
+                        headers: {
+                            Authorization: "Bearer " + token
+                        }
+                    })];
+            case 2:
+                data = (_a.sent()).data;
+                dispatch({
+                    type: 'getAllPostsSuccess',
+                    payload: data.posts
+                });
+                return [3 /*break*/, 4];
+            case 3:
+                error_2 = _a.sent();
+                dispatch({
+                    type: 'getAllPostsFailed',
+                    payload: error_2.response.data.message
+                });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); }; };

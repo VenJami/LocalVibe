@@ -6,6 +6,7 @@ import { getItem, setItem } from '../utils/asyncStorage';
 import PostScreen from '../src/screens/PostScreen';
 import ProfileScreen from '../src/screens/ProfileScreen';
 import SearchScreen from '../src/screens/SearchScreen';
+import UserProfileScreen from '../src/screens/UserProfileScreen';
 
 type Props = {};
 
@@ -43,6 +44,7 @@ const Main = (props: Props) => {
         <Stack.Screen name="Post" component={PostScreen}/>
         <Stack.Screen name="Profile" component={ProfileScreen}/>
         <Stack.Screen name="Search" component={SearchScreen}/>
+        <Stack.Screen name="UserProfile" component={UserProfileScreen}/>
 
       </Stack.Navigator>
     );
@@ -57,6 +59,7 @@ const Main = (props: Props) => {
         <Stack.Screen name="Post" component={PostScreen}/>
         <Stack.Screen name="Profile" component={ProfileScreen}/>
         <Stack.Screen name="Search" component={SearchScreen}/>
+        <Stack.Screen name="UserProfile" component={UserProfileScreen}/>
 
       </Stack.Navigator>
     );

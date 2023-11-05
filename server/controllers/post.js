@@ -52,3 +52,16 @@ exports.createPost = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(error.message, 400));
   }
 });
+
+// get all posts
+exports.getAllPosts = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const posts = await Post.find().sort({
+      createdAt: -1,
+    });
+
+    res.status(201).json({ success: true, posts });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 400));
+  }
+});

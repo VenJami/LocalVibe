@@ -22,6 +22,17 @@ exports.postReducer = toolkit_1.createReducer(intialState, {
         state.isLoading = false;
         state.error = action.payload;
     },
+    getAllPostsRequest: function (state) {
+        state.isLoading = true;
+    },
+    getAllPostsSuccess: function (state, action) {
+        state.isLoading = false;
+        state.posts = action.payload;
+    },
+    getAllPostsFailed: function (state, action) {
+        state.isLoading = false;
+        state.error = action.payload;
+    },
     clearErrors: function (state) {
         state.error = null;
     }

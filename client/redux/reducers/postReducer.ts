@@ -4,7 +4,7 @@ const intialState = {
   posts:[],
   post:{},
   error: null,
-  isSuccess: false,
+  isSuccess:false,
   isLoading: true,
 };
 
@@ -18,6 +18,17 @@ export const postReducer = createReducer(intialState, {
     state.isSuccess = true;
   },
   postCreateFailed: (state, action) => {
+    state.isLoading = false;
+    state.error = action.payload;
+  },
+  getAllPostsRequest: state => {
+    state.isLoading = true;
+  },
+  getAllPostsSuccess: (state,action) => {
+   state.isLoading = false;
+   state.posts = action.payload;
+  },
+  getAllPostsFailed: (state,action) => {
     state.isLoading = false;
     state.error = action.payload;
   },

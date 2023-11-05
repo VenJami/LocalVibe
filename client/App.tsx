@@ -3,8 +3,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import Main from './Navigations/Main';
 import Auth from './Navigations/Auth';
 import Store from './redux/Store';
-import {Provider, useSelector} from 'react-redux';
-import { loadUser } from './redux/actions/userAction';
+import {Provider, useDispatch, useSelector} from 'react-redux';
+import { getAllUsers, loadUser } from './redux/actions/userAction';
 import { StatusBar, Text } from 'react-native';
 import Loader from './src/common/Loader';
 
@@ -17,14 +17,13 @@ function App() {
 }
 
 const AppStack = () => {
-  const [isLogin, setIsLogin] = React.useState(false);
   const { isAuthenticated, loading } = useSelector((state:any) => state.user);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     Store.dispatch(loadUser());
+    getAllUsers()(dispatch)
   }, []);
-
-  console.log(isAuthenticated);
 
   return (
     <>
